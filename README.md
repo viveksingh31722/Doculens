@@ -2,7 +2,7 @@
 
 An AI-powered grounded document analysis, schedule conflict verification, and human-in-the-loop project summary generator built on Next.js (App Router), TypeScript, and PostgreSQL.
 
-Live URL: [https://pda-doc-to-action.vercel.app](https://pda-doc-to-action.vercel.app) *(Example placeholder url)*
+Live URL: (doculens-coral.vercel.app)
 
 ## 1. System Architecture and Stack
 
@@ -22,7 +22,7 @@ flowchart TD
 - **Styling**: Tailwind CSS v4 (providing glassmorphic overlays and modern dark themes).
 - **ORM & Database**: Prisma 7 + PostgreSQL (isolating data in `pda_db` schema).
 - **Driver Adapter**: Prisma 7 native `@prisma/adapter-pg` + `pg` Pool for robust PostgreSQL connectivity.
-- **LLM API**: OpenAI Chat Completions API with fallback to deterministic mock extraction for seamless offline evaluation.
+- **LLM API**: Gemini Completions API with fallback to deterministic mock extraction for seamless offline evaluation.
 - **Logging**: Pino JSON-structured logging mapped to request IDs.
 - **Tests**: Vitest + JSDOM for backend API and utility unit tests.
 
