@@ -416,6 +416,9 @@ export async function POST(
           },
         });
       }
+    }, {
+      maxWait: 15000,
+      timeout: 60000,
     });
 
     // 7. Mark analysis run as complete

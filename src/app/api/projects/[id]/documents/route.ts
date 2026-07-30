@@ -231,6 +231,9 @@ export async function POST(
         docs.push(doc);
       }
       return docs;
+    }, {
+      maxWait: 15000,
+      timeout: 60000,
     });
 
     return NextResponse.json({
