@@ -43,13 +43,7 @@ npm install
 Copy `.env.example` to `.env` and configure your credentials:
 ```bash
 cp .env.example .env
-```
-Ensure your `DATABASE_URL` is set:
-```dotenv
-DATABASE_URL="postgresql://postgres:password@localhost:5432/pda_db?schema=public"
-OPENAI_API_KEY="sk-your-openai-key-or-dummy-for-mock"
-OPENAI_MODEL="gpt-4o-mini"
-```
+
 
 ### 3. Generate Database Client & Run Migrations
 Prisma 7 uses a central `prisma.config.ts` configuration. Simply run:
