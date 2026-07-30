@@ -1,0 +1,162 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  status      String   @default("active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  documents    Document[]
+  analysisRuns AnalysisRun[]
+  findings     Finding[]
+  conflicts    Conflict[]
+  actionItems  ActionItem[]
+  summaries    Summary[]
+
+  @@map("projects")
+}
+
+model Document {
+  id           String   @id @default(uuid())
+  projectId    String   @map("project_id")
+  originalName String   @map("original_name")
+  mimeType     String   @map("mime_type")
+  storageKey   String   @map("storage_key")
+  rawText      String   @map("raw_text")
+  documentType String   @map("document_type")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  project  Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sections DocumentSection[]
+  sources  FindingSource[]
+
+  @@map("documents")
+}
+
+model DocumentSection {
+  id         String   @id @default(uuid())
+  documentId String   @map("document_id")
+  ordinal    Int
+  heading    String?
+  content    String
+  charStart  Int      @map("char_start")
+  charEnd    Int      @map("char_end")
+
+  document Document        @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  sources  FindingSource[]
+
+  @@map("document_sections")
+}
+
+model AnalysisRun {
+  id              String    @id @default(uuid())
+  projectId       String    @map("project_id")
+  status          String    
+  model           String
+  promptVersion   String    @map("prompt_version")
+  inputHash       String    @map("input_hash")
+  startedAt       DateTime  @default(now()) @map("started_at")
+  finishedAt      DateTime? @map("finished_at")
+  errorCode       String?   @map("error_code")
+  geminiCallCount Int       @default(0) @map("gemini_call_count")
+
+  project  Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  findings Finding[]
+
+  @@map("analysis_runs")
+}
+
+model Finding {
+  id              String   @id @default(uuid())
+  projectId       String   @map("project_id")
+  runId           String   @map("run_id")
+  kind            String   
+  statement       String
+  classification  String   
+  reviewStatus    String   @default("unreviewed") @map("review_status")
+  editedStatement String?  @map("edited_statement")
+  reviewNote      String?  @map("review_note")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  project  Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  run      AnalysisRun       @relation(fields: [runId], references: [id], onDelete: Cascade)
+  sources  FindingSource[]
+  conflicts ConflictFinding[]
+
+  @@map("findings")
+}
+
+model FindingSource {
+  findingId  String @map("finding_id")
+  documentId String @map("document_id")
+  sectionId  String @map("section_id")
+  quote      String
+
+  finding  Finding         @relation(fields: [findingId], references: [id], onDelete: Cascade)
+  document Document        @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  section  DocumentSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@id([findingId, documentId, sectionId])
+  @@map("finding_sources")
+}
+
+model Conflict {
+  id             String   @id @default(uuid())
+  projectId      String   @map("project_id")
+  title          String
+  description    String
+  status         String   @default("unresolved")
+  resolutionNote String?  @map("resolution_note")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  project  Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  findings ConflictFinding[]
+
+  @@map("conflicts")
+}
+
+model ConflictFinding {
+  conflictId String @map("conflict_id")
+  findingId  String @map("finding_id")
+
+  conflict Conflict @relation(fields: [conflictId], references: [id], onDelete: Cascade)
+  finding  Finding  @relation(fields: [findingId], references: [id], onDelete: Cascade)
+
+  @@id([conflictId, findingId])
+  @@map("conflict_findings")
+}
+
+model ActionItem {
+  id         String   @id @default(uuid())
+  projectId  String   @map("project_id")
+  text       String
+  rationale  String?
+  status     String   @default("proposed")
+  editedText String?  @map("edited_text")
+  reviewNote String?  @map("review_note")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("action_items")
+}
+
+model Summary {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  version     Int      @default(1)
+  contentJson String   @map("content_json")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("summaries")
+}
