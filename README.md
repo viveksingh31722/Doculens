@@ -39,28 +39,22 @@ flowchart TD
 npm install
 ```
 
-### 2. Configure Environment Variables
-Copy `.env.example` to `.env` and configure your credentials:
-```bash
-cp .env.example .env
-
-
-### 3. Generate Database Client & Run Migrations
+### 2. Generate Database Client & Run Migrations
 Prisma 7 uses a central `prisma.config.ts` configuration. Simply run:
 ```bash
 npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-### 4. Running the Development Server
+### 3. Running the Development Server
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+Open [http://localhost:3000](doculens-coral.vercel.app) to view the application.
 
 ---
 
-## 3. How to Demo the Core Workflow
+## 5. How to Demo the Core Workflow
 
 PDA includes a **self-seeding feature** that automatically populates the workspace with a demo project `Website Checkout Refresh` on the first load of the dashboard, meaning no manual database seeding is required!
 
