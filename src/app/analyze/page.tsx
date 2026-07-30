@@ -174,8 +174,8 @@ export default function AnalyzePage() {
       
       // Delay slightly for visual feedback
       setTimeout(() => {
-        // Take them to the project details page
-        router.push(`/projects/${selectedProjectId}`);
+        // Take them to the project review queue page
+        router.push(`/projects/${selectedProjectId}/review`);
       }, 800);
 
     } catch (err) {

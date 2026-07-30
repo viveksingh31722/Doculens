@@ -137,7 +137,7 @@ export default function ProjectWorkspace(props: { params: Promise<{ id: string }
           setProject(data);
           const currentRun = data.analysisRuns?.[0];
           if (currentRun && currentRun.status === 'completed') {
-            fetchProjectData();
+            router.push(`/projects/${projectId}/review`);
           }
         }
       } catch (err) {
@@ -207,7 +207,7 @@ export default function ProjectWorkspace(props: { params: Promise<{ id: string }
         throw new Error(responseData?.error?.message || 'Analysis initiation failed');
       }
 
-      await fetchProjectData();
+      router.push(`/projects/${projectId}/review`);
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Analysis failed to start';
       setError(msg);
