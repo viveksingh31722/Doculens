@@ -54,6 +54,42 @@ interface Project {
   name: string;
 }
 
+function ConflictResolutionInput({ 
+  conflictId, 
+  initialValue, 
+  onSave 
+}: { 
+  conflictId: string; 
+  initialValue: string; 
+  onSave: (id: string, updates: { resolutionNote: string }) => void 
+}) {
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  return (
+    <input
+      type="text"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={() => {
+        if (value !== initialValue) {
+          onSave(conflictId, { resolutionNote: value });
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.currentTarget.blur();
+        }
+      }}
+      placeholder="Enter the resolved action or alignment note..."
+      className="flex-1 rounded-xl bg-white border border-zinc-200 px-3.5 py-2 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+    />
+  );
+}
+
 export default function ReviewQueue(props: { params: Promise<{ id: string }> }) {
   const params = use(props.params);
   const projectId = params.id;
@@ -463,12 +499,10 @@ export default function ReviewQueue(props: { params: Promise<{ id: string }> }) 
                           Conflict Resolution Note
                         </label>
                         <div className="flex gap-2">
-                          <input
-                            type="text"
-                            value={conflict.resolutionNote || ''}
-                            onChange={(e) => handleUpdateConflict(conflict.id, { resolutionNote: e.target.value })}
-                            placeholder="Enter the resolved action or alignment note..."
-                            className="flex-1 rounded-xl bg-white border border-zinc-200 px-3.5 py-2 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                          <ConflictResolutionInput
+                            conflictId={conflict.id}
+                            initialValue={conflict.resolutionNote || ''}
+                            onSave={handleUpdateConflict}
                           />
                           <button
                             onClick={() => handleUpdateConflict(conflict.id, { status: isResolved ? 'unresolved' : 'resolved' })}
