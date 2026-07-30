@@ -284,7 +284,7 @@ export default function AnalyzePage() {
                     <button
                       type="submit"
                       disabled={creatingProj}
-                      className="flex-1 flex h-8 items-center justify-center rounded-lg bg-indigo-650 hover:bg-indigo-700 text-white text-[10px] font-bold shadow-sm transition-colors"
+                      className="flex-1 flex h-8 items-center justify-center rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold shadow-sm transition-colors"
                     >
                       {creatingProj ? 'Creating...' : 'Create'}
                     </button>
@@ -324,7 +324,7 @@ export default function AnalyzePage() {
                     )}
                   >
                     {isSelected && (
-                      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-indigo-650 rounded-l-xl" />
+                      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-indigo-600 rounded-l-xl" />
                     )}
                     <div>
                       <span className="block text-xs font-bold text-zinc-900 truncate pr-4">{p.name}</span>

@@ -676,7 +676,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={isCreating || !name.trim()}
-                className="w-full h-9 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-650 font-bold text-white text-xs hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-1 disabled:opacity-50"
+                className="w-full h-9 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 font-bold text-white text-xs hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-1 disabled:opacity-50"
               >
                 {isCreating ? (
                   <>
