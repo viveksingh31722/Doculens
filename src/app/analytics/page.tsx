@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   BarChart3, FileText, CheckCircle2, Clock, Zap, Sparkles, Folder,
   ChevronRight, ArrowRight, RefreshCw, BarChart
@@ -11,15 +11,48 @@ import { cn } from '@/lib/utils';
 
 export default function AnalyticsPage() {
   const [hoveredType, setHoveredType] = useState<string | null>(null);
+  
+  const [realStats, setRealStats] = useState<any>(null);
+  const [realBarData, setRealBarData] = useState<any[]>([]);
+  const [realDonutData, setRealDonutData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/analytics')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setRealStats(data.stats);
+          setRealBarData(data.weeklyVolume);
+          
+          // Format donut data with colors and offset
+          const colors = ['#4F46E5', '#10B981', '#F59E0B', '#8B5CF6', '#F97316'];
+          let cumulativePercent = 0;
+          const formattedDonut = data.donutData.map((item: any, idx: number) => {
+            const offset = cumulativePercent;
+            cumulativePercent += item.value;
+            return {
+              name: item.name,
+              value: item.value,
+              color: colors[idx % colors.length],
+              offset
+            };
+          });
+          setRealDonutData(formattedDonut);
+        }
+      })
+      .catch((e) => console.error(e))
+      .finally(() => setLoading(false));
+  }, []);
 
   const stats = [
-    { label: 'Total Documents', value: '12,847', icon: FileText, color: 'text-indigo-600 bg-indigo-50 border-indigo-100' },
-    { label: 'Processing Speed', value: '2.1s avg', icon: Zap, color: 'text-purple-650 bg-purple-50 border-purple-100' },
-    { label: 'Accuracy Rate', value: '98.7%', icon: CheckCircle2, color: 'text-emerald-600 bg-emerald-50 border-emerald-100' },
-    { label: 'Categories', value: '14', icon: Folder, color: 'text-amber-600 bg-amber-50 border-amber-100' },
+    { label: 'Total Documents', value: realStats ? Number(realStats.totalDocuments).toLocaleString() : '12,847', icon: FileText, color: 'text-indigo-600 bg-indigo-50 border-indigo-100' },
+    { label: 'Processing Speed', value: realStats ? `${realStats.avgSpeed} avg` : '2.1s avg', icon: Zap, color: 'text-purple-650 bg-purple-50 border-purple-100' },
+    { label: 'Accuracy Rate', value: realStats ? realStats.accuracyRate : '98.7%', icon: CheckCircle2, color: 'text-emerald-600 bg-emerald-50 border-emerald-100' },
+    { label: 'Categories', value: realStats ? realStats.categoriesCount.toString() : '14', icon: Folder, color: 'text-amber-600 bg-amber-50 border-amber-100' },
   ];
 
-  const barData = [
+  const barData = realBarData.length > 0 ? realBarData : [
     { label: 'Mon', value: 115 },
     { label: 'Tue', value: 135 },
     { label: 'Wed', value: 98 },
@@ -29,7 +62,7 @@ export default function AnalyticsPage() {
     { label: 'Sun', value: 80 },
   ];
 
-  const donutData = [
+  const donutData = realDonutData.length > 0 ? realDonutData : [
     { name: 'PDF', value: 45, color: '#4F46E5', offset: 0 },
     { name: 'DOCX', value: 25, color: '#10B981', offset: 45 },
     { name: 'XLSX', value: 15, color: '#F59E0B', offset: 70 },

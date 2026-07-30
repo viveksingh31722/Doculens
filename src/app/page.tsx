@@ -52,6 +52,7 @@ export default function Home() {
   const [editDescription, setEditDescription] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
   const [activeDropdownProjectId, setActiveDropdownProjectId] = useState<string | null>(null);
+  const [realStats, setRealStats] = useState<any>(null);
 
   const fetchDashboardData = useCallback(async () => {
     try {
@@ -60,13 +61,27 @@ export default function Home() {
       const projData = await projRes.json();
       setProjects(projData);
 
+      // Fetch dashboard analytics
+      try {
+        const statsRes = await fetch('/api/analytics');
+        if (statsRes.ok) {
+          const statsData = await statsRes.json();
+          if (statsData.success) {
+            setRealStats(statsData.stats);
+          }
+        }
+      } catch (e) {
+        console.error('Error fetching analytics:', e);
+      }
+
       // Fetch documents for each project to list recent documents
       const docsList: DocumentItem[] = [];
       for (const proj of projData) {
         try {
-          const docRes = await fetch(`/api/projects/${proj.id}/documents`);
+          const docRes = await fetch(`/api/projects/${proj.id}`);
           if (docRes.ok) {
-            const docsData = await docRes.json();
+            const projectDetails = await docRes.json();
+            const docsData = projectDetails.documents || [];
             docsData.forEach((d: any) => {
               docsList.push({
                 id: d.id,
@@ -266,7 +281,9 @@ export default function Home() {
             </span>
           </div>
           <div className="mt-4">
-            <span className="block text-2xl font-extrabold text-zinc-900 tracking-tight">1,284</span>
+            <span className="block text-2xl font-extrabold text-zinc-900 tracking-tight">
+              {realStats ? Number(realStats.totalDocuments).toLocaleString() : '1,284'}
+            </span>
             <span className="text-[11px] font-bold text-zinc-450 uppercase tracking-wider">Documents Analyzed</span>
           </div>
         </motion.div>
@@ -287,7 +304,9 @@ export default function Home() {
             </span>
           </div>
           <div className="mt-4">
-            <span className="block text-2xl font-extrabold text-zinc-900 tracking-tight">98.7%</span>
+            <span className="block text-2xl font-extrabold text-zinc-900 tracking-tight">
+              {realStats ? realStats.accuracyRate : '98.7%'}
+            </span>
             <span className="text-[11px] font-bold text-zinc-455 uppercase tracking-wider">Accuracy Rate</span>
           </div>
         </motion.div>
@@ -308,7 +327,9 @@ export default function Home() {
             </span>
           </div>
           <div className="mt-4">
-            <span className="block text-2xl font-extrabold text-zinc-900 tracking-tight">2.4s</span>
+            <span className="block text-2xl font-extrabold text-zinc-900 tracking-tight">
+              {realStats ? realStats.avgSpeed : '2.4s'}
+            </span>
             <span className="text-[11px] font-bold text-zinc-455 uppercase tracking-wider">Avg. Processing Time</span>
           </div>
         </motion.div>
@@ -329,8 +350,10 @@ export default function Home() {
             </span>
           </div>
           <div className="mt-4">
-            <span className="block text-2xl font-extrabold text-zinc-900 tracking-tight">3,847</span>
-            <span className="text-[11px] font-bold text-zinc-455 uppercase tracking-wider">API Calls Today</span>
+            <span className="block text-2xl font-extrabold text-zinc-900 tracking-tight">
+              {projects.length}
+            </span>
+            <span className="text-[11px] font-bold text-zinc-455 uppercase tracking-wider">Active Workspaces</span>
           </div>
         </motion.div>
       </motion.div>
@@ -484,37 +507,8 @@ export default function Home() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-zinc-100/50 text-xs">
-                    {/* Hardcoded Sample Row 1 from Screenshot */}
-                    <tr className="hover:bg-zinc-50/40 transition-colors">
-                      <td className="py-3.5 flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center shrink-0 border border-indigo-100/60">
-                          <FileText className="h-4 w-4 text-indigo-500" />
-                        </div>
-                        <div>
-                          <span className="font-bold text-zinc-900 block truncate max-w-[200px]">Q4 Financial Report 2025.pdf</span>
-                          <span className="text-[10px] text-zinc-400 block font-semibold uppercase mt-0.5">PDF • 2.4 MB</span>
-                        </div>
-                      </td>
-                      <td className="py-3.5">
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
-                          <span className="w-1 h-1 rounded-full bg-emerald-500" />
-                          Complete
-                        </span>
-                      </td>
-                      <td className="py-3.5 font-extrabold text-zinc-800">99.1%</td>
-                      <td className="py-3.5 text-zinc-450 font-semibold">2 min ago</td>
-                      <td className="py-3.5 text-right">
-                        <button 
-                          onClick={() => router.push('/results')}
-                          className="text-xs font-bold text-indigo-600 hover:text-indigo-850 px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition-colors"
-                        >
-                          View
-                        </button>
-                      </td>
-                    </tr>
-
-                    {/* Loaded database documents if any */}
-                    {documents.slice(0, 4).map((doc) => (
+                    {/* Loaded database documents */}
+                    {documents.slice(0, 5).map((doc) => (
                       <tr key={doc.id} className="hover:bg-zinc-50/40 transition-colors">
                         <td className="py-3.5 flex items-center gap-3">
                           <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center shrink-0 border border-indigo-100/60">
