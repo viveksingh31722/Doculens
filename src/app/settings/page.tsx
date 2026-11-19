@@ -6,7 +6,7 @@ import { TextEffect } from '@/components/motion-primitives/text-effect';
 
 export default function SettingsPage() {
   return (
-    <main className="flex-1 p-8 space-y-8 max-w-7xl mx-auto w-full select-none">
+    <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full select-none min-w-0">
       <div>
         <TextEffect preset="fade-in-blur" per="word" className="font-heading text-2xl sm:text-3xl font-extrabold text-zinc-900">
           Settings
@@ -16,7 +16,7 @@ export default function SettingsPage() {
         </p>
       </div>
 
-      <div className="glass-panel p-8 rounded-2xl border border-white/60 shadow-sm max-w-2xl">
+      <div className="glass-panel p-5 sm:p-8 rounded-2xl border border-white/60 shadow-sm max-w-2xl">
         <div className="flex items-center gap-3 mb-6 pb-4 border-b border-zinc-150">
           <Settings className="h-5 w-5 text-indigo-500" />
           <h3 className="font-heading text-sm font-bold text-zinc-900">General Configuration</h3>

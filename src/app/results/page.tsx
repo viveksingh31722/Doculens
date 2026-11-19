@@ -201,7 +201,7 @@ export default function ResultsPage() {
     : 99.1; // Fallback to demo accuracy if no real findings
 
   return (
-    <main className="flex-1 p-8 space-y-8 max-w-7xl mx-auto w-full select-none">
+    <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full select-none min-w-0">
       
       {/* Top Action Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -229,7 +229,7 @@ export default function ResultsPage() {
           <select
             value={selectedProjectId}
             onChange={(e) => setSelectedProjectId(e.target.value)}
-            className="rounded-xl bg-white border border-zinc-200 px-3.5 py-2 text-xs text-zinc-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-bold shadow-sm"
+            className="w-full sm:w-auto rounded-xl bg-white border border-zinc-200 px-3.5 py-2 text-xs text-zinc-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-bold shadow-xs"
           >
             <option value="demo">Sample: Q4 Financial Report 2025.pdf</option>
             {projects.map((p) => (
@@ -239,7 +239,7 @@ export default function ResultsPage() {
 
           <button
             onClick={handleCopyLink}
-            className="flex h-10 items-center justify-center rounded-xl bg-white border border-zinc-200 px-4 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-all hover:scale-[1.01] active:scale-[0.99] shadow-sm gap-1.5"
+            className="flex-1 sm:flex-initial flex h-9 sm:h-10 items-center justify-center rounded-xl bg-white border border-zinc-200 px-3.5 sm:px-4 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xs gap-1.5"
           >
             <Copy className="h-4 w-4 text-zinc-400" />
             {copySuccess ? 'Copied!' : 'Copy Link'}
@@ -247,7 +247,7 @@ export default function ResultsPage() {
           
           <button
             onClick={() => window.print()}
-            className="flex h-10 items-center justify-center rounded-xl bg-white border border-zinc-200 px-4 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-all hover:scale-[1.01] active:scale-[0.99] shadow-sm gap-1.5"
+            className="flex-1 sm:flex-initial flex h-9 sm:h-10 items-center justify-center rounded-xl bg-white border border-zinc-200 px-3.5 sm:px-4 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xs gap-1.5"
           >
             <Download className="h-4 w-4 text-zinc-400" />
             Export
@@ -255,7 +255,7 @@ export default function ResultsPage() {
 
           <button
             onClick={handleCopyLink}
-            className="flex h-10 items-center justify-center rounded-xl bg-indigo-600 font-bold text-white px-5 shadow-md shadow-indigo-600/10 hover:shadow-indigo-650/20 active:scale-[0.98] transition-all gap-1.5"
+            className="flex-1 sm:flex-initial flex h-9 sm:h-10 items-center justify-center rounded-xl bg-indigo-600 font-bold text-white px-4 sm:px-5 shadow-md shadow-indigo-600/10 hover:shadow-indigo-650/20 active:scale-[0.98] transition-all gap-1.5 text-xs"
           >
             <Share className="h-4 w-4" />
             Share
@@ -279,16 +279,16 @@ export default function ResultsPage() {
             className="space-y-8"
           >
             {/* Main Status Banner */}
-            <div className="glass-panel p-6 rounded-2xl border border-emerald-100 bg-emerald-50/20 shadow-sm flex flex-col sm:flex-row justify-between sm:items-center gap-6 relative overflow-hidden">
+            <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-emerald-100 bg-emerald-50/20 shadow-sm flex flex-col sm:flex-row justify-between sm:items-center gap-4 sm:gap-6 relative overflow-hidden">
               <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-emerald-500 rounded-l-2xl" />
               
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0">
-                  <CheckCircle2 className="h-6 w-6 text-emerald-600 animate-pulse" />
+              <div className="flex items-center gap-3.5 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-600 animate-pulse" />
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-zinc-900">Analysis Complete</h3>
-                  <p className="text-[11px] text-zinc-450 font-bold mt-1 uppercase tracking-wider">
+                  <h3 className="text-sm sm:text-base font-extrabold text-zinc-900">Analysis Complete</h3>
+                  <p className="text-[10px] sm:text-[11px] text-zinc-450 font-bold mt-0.5 sm:mt-1 uppercase tracking-wider">
                     {selectedProjectId === 'demo' 
                       ? '99.1% confidence • 8 fields extracted • 4 insights generated'
                       : `${accuracyRate}% confidence • ${findings.length} findings • ${conflicts.length} conflicts`}
@@ -297,7 +297,7 @@ export default function ResultsPage() {
               </div>
 
               <div className="text-left sm:text-right shrink-0">
-                <span className="block text-3xl font-extrabold text-emerald-600 tracking-tight">
+                <span className="block text-2xl sm:text-3xl font-extrabold text-emerald-600 tracking-tight">
                   {selectedProjectId === 'demo' ? '99.1%' : `${accuracyRate}%`}
                 </span>
                 <span className="text-[10px] font-bold text-zinc-455 uppercase tracking-wider block mt-0.5">Overall Accuracy</span>
@@ -305,13 +305,13 @@ export default function ResultsPage() {
             </div>
 
             {/* Primary Split Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
               
               {/* Left Column (2/3): Summary + Grounding Conflicts + Key Insights */}
-              <div className="lg:col-span-2 space-y-8">
+              <div className="lg:col-span-2 space-y-6 sm:space-y-8 min-w-0">
                 
                 {/* Summary Card */}
-                <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-4">
+                <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-3 sm:space-y-4">
                   <h3 className="font-heading text-sm font-bold text-zinc-900 flex items-center gap-2">
                     <FileText className="h-4.5 w-4.5 text-zinc-450" />
                     Summary
@@ -541,7 +541,7 @@ export default function ResultsPage() {
               </div>
 
               {/* Right Column (1/3): Extracted Fields */}
-              <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-5">
+              <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-4 sm:space-y-5 min-w-0">
                 <div className="flex justify-between items-center border-b border-zinc-150 pb-3">
                   <h3 className="font-heading text-sm font-bold text-zinc-900">Extracted Facts & Decisions</h3>
                   <span className="text-[10px] font-bold text-zinc-450">

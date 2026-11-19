@@ -234,7 +234,7 @@ export default function AnalyzePage() {
   ];
 
   return (
-    <main className="flex-1 p-8 space-y-8 max-w-7xl mx-auto w-full select-none">
+    <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full select-none min-w-0">
       {/* Header Panel */}
       <div>
         <TextEffect preset="fade-in-blur" per="word" className="font-heading text-2xl sm:text-3xl font-extrabold text-zinc-900">
@@ -246,10 +246,10 @@ export default function AnalyzePage() {
       </div>
 
       {/* Main Form Split */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
         
         {/* Left Column: Drag & Drop + Process flow */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 sm:space-y-8 min-w-0">
           
           {/* Workspace selector */}
           <div className="space-y-3">
@@ -372,12 +372,12 @@ export default function AnalyzePage() {
           </div>
 
           {/* Upload Area */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-6">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-4 sm:space-y-6">
             <div 
               onDragOver={handleDragOver}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-zinc-200 hover:border-indigo-400 rounded-2xl p-12 text-center bg-white/60 hover:bg-white transition-all cursor-pointer flex flex-col items-center justify-center space-y-4"
+              className="border-2 border-dashed border-zinc-200 hover:border-indigo-400 rounded-2xl p-6 sm:p-10 md:p-12 text-center bg-white/60 hover:bg-white transition-all cursor-pointer flex flex-col items-center justify-center space-y-3 sm:space-y-4"
             >
               <input
                 ref={fileInputRef}
@@ -514,10 +514,10 @@ export default function AnalyzePage() {
         </div>
 
         {/* Right Column: Analysis configs */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8 min-w-0">
           
           {/* Analysis Type */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-4">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-4">
             <h4 className="block text-xs font-bold uppercase tracking-wider text-zinc-400">Analysis Type</h4>
             <div className="space-y-3">
               {analysisOptions.map((opt) => {

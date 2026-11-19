@@ -228,7 +228,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 p-8 space-y-8 max-w-7xl mx-auto w-full select-none">
+    <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full select-none min-w-0">
       {/* Header Panel */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -240,17 +240,17 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap sm:flex-nowrap">
           <button
             onClick={() => window.print()}
-            className="flex h-10 items-center justify-center rounded-xl bg-white border border-zinc-200 px-4 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-all hover:scale-[1.01] active:scale-[0.99] shadow-sm"
+            className="flex-1 sm:flex-initial flex h-10 items-center justify-center rounded-xl bg-white border border-zinc-200 px-3.5 sm:px-4 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xs"
           >
             <Printer className="mr-2 h-4 w-4 text-zinc-400" />
             Export Report
           </button>
           <Link
             href="/analyze"
-            className="flex h-10 items-center justify-center rounded-xl bg-indigo-600 font-bold text-white px-5 shadow-md shadow-indigo-600/10 hover:shadow-indigo-650/20 active:scale-[0.98] transition-all gap-1.5"
+            className="flex-1 sm:flex-initial flex h-10 items-center justify-center rounded-xl bg-indigo-600 font-bold text-white px-4 sm:px-5 shadow-md shadow-indigo-600/10 hover:shadow-indigo-650/20 active:scale-[0.98] transition-all gap-1.5 text-xs"
           >
             <Sparkles className="h-4 w-4" />
             New Analysis
@@ -263,7 +263,7 @@ export default function Home() {
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
       >
         {/* Metric 1 */}
         <motion.div 
@@ -359,19 +359,19 @@ export default function Home() {
       </motion.div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
         {/* Left 2 Columns: Chart and Recent Documents */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 sm:space-y-8 min-w-0">
           {/* Chart Section */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-6">
-            <div className="flex justify-between items-center">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h3 className="font-heading text-sm font-bold text-zinc-900">Documents This Week</h3>
                 <p className="text-[11px] font-medium text-zinc-400 mt-0.5">Processing volume over the last 7 days</p>
               </div>
 
               {/* Timeframe selectors */}
-              <div className="flex bg-zinc-100 p-0.5 rounded-xl border border-zinc-200/50">
+              <div className="flex bg-zinc-100 p-0.5 rounded-xl border border-zinc-200/50 self-start sm:self-auto">
                 {['1D', '1W', '1M', '1Y'].map((t) => (
                   <button
                     key={t}
@@ -389,57 +389,59 @@ export default function Home() {
             </div>
 
             {/* SVG Area Chart */}
-            <div className="h-64 w-full relative pt-4">
-              <svg className="w-full h-full" viewBox="0 0 600 200" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#4F46E5" stopOpacity="0.16" />
-                    <stop offset="100%" stopColor="#4F46E5" stopOpacity="0.0" />
-                  </linearGradient>
-                </defs>
+            <div className="w-full relative pt-2 sm:pt-4 space-y-2">
+              <div className="h-44 sm:h-56 w-full relative overflow-hidden">
+                <svg className="w-full h-full" viewBox="0 0 600 200" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#4F46E5" stopOpacity="0.16" />
+                      <stop offset="100%" stopColor="#4F46E5" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
 
-                {/* Grid Lines */}
-                <line x1="0" y1="40" x2="600" y2="40" stroke="#f1f5f9" strokeWidth="1" />
-                <line x1="0" y1="80" x2="600" y2="80" stroke="#f1f5f9" strokeWidth="1" />
-                <line x1="0" y1="120" x2="600" y2="120" stroke="#f1f5f9" strokeWidth="1" />
-                <line x1="0" y1="160" x2="600" y2="160" stroke="#f1f5f9" strokeWidth="1" />
+                  {/* Grid Lines */}
+                  <line x1="0" y1="40" x2="600" y2="40" stroke="#f1f5f9" strokeWidth="1" />
+                  <line x1="0" y1="80" x2="600" y2="80" stroke="#f1f5f9" strokeWidth="1" />
+                  <line x1="0" y1="120" x2="600" y2="120" stroke="#f1f5f9" strokeWidth="1" />
+                  <line x1="0" y1="160" x2="600" y2="160" stroke="#f1f5f9" strokeWidth="1" />
 
-                {/* Area path */}
-                <path
-                  d="M 0,115 C 60,105 90,95 150,105 C 210,115 240,130 300,120 C 360,110 390,75 450,75 C 510,75 540,120 600,125 L 600,200 L 0,200 Z"
-                  fill="url(#chartGrad)"
-                />
+                  {/* Area path */}
+                  <path
+                    d="M 0,115 C 60,105 90,95 150,105 C 210,115 240,130 300,120 C 360,110 390,75 450,75 C 510,75 540,120 600,125 L 600,200 L 0,200 Z"
+                    fill="url(#chartGrad)"
+                  />
 
-                {/* Main line path */}
-                <motion.path
-                  d="M 0,115 C 60,105 90,95 150,105 C 210,115 240,130 300,120 C 360,110 390,75 450,75 C 510,75 540,120 600,125"
-                  fill="none"
-                  stroke="#4F46E5"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1.2, ease: "easeOut" }}
-                />
+                  {/* Main line path */}
+                  <motion.path
+                    d="M 0,115 C 60,105 90,95 150,105 C 210,115 240,130 300,120 C 360,110 390,75 450,75 C 510,75 540,120 600,125"
+                    fill="none"
+                    stroke="#4F46E5"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
+                  />
 
-                {/* Highlight Dot */}
-                <motion.circle
-                  cx="245"
-                  cy="125"
-                  r="4"
-                  fill="#4F46E5"
-                  stroke="#ffffff"
-                  strokeWidth="2"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.8 }}
-                />
-              </svg>
+                  {/* Highlight Dot */}
+                  <motion.circle
+                    cx="245"
+                    cy="125"
+                    r="4"
+                    fill="#4F46E5"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.8 }}
+                  />
+                </svg>
 
-              {/* Chart Tooltip Overlay */}
-              <div className="absolute left-[200px] top-[105px] bg-white border border-zinc-200 rounded-xl p-2 shadow-lg text-[10px] space-y-0.5 border border-indigo-100">
-                <span className="block text-zinc-400 font-semibold">Wed</span>
-                <span className="block font-extrabold text-zinc-800">docs: 98</span>
+                {/* Chart Tooltip Overlay */}
+                <div className="absolute left-[200px] top-[105px] bg-white border border-zinc-200 rounded-xl p-2 shadow-lg text-[10px] space-y-0.5 border border-indigo-100">
+                  <span className="block text-zinc-400 font-semibold">Wed</span>
+                  <span className="block font-extrabold text-zinc-800">docs: 98</span>
+                </div>
               </div>
 
               {/* X Axis Labels */}
@@ -456,13 +458,13 @@ export default function Home() {
           </div>
 
           {/* Documents/Workspaces Table Block */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-6">
-            <div className="flex justify-between items-center border-b border-zinc-150 pb-4">
-              <div className="flex gap-4">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-5 sm:space-y-6">
+            <div className="flex flex-col xs:flex-row xs:items-center justify-between border-b border-zinc-150 pb-3 sm:pb-4 gap-2">
+              <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-1">
                 <button
                   onClick={() => setTableTab('documents')}
                   className={cn(
-                    "text-sm font-bold pb-1 transition-all relative border-b-2",
+                    "text-xs sm:text-sm font-bold pb-1 transition-all relative border-b-2 shrink-0",
                     tableTab === 'documents' 
                       ? "border-indigo-600 text-zinc-900" 
                       : "border-transparent text-zinc-400 hover:text-zinc-650"
@@ -473,7 +475,7 @@ export default function Home() {
                 <button
                   onClick={() => setTableTab('projects')}
                   className={cn(
-                    "text-sm font-bold pb-1 transition-all relative border-b-2",
+                    "text-xs sm:text-sm font-bold pb-1 transition-all relative border-b-2 shrink-0",
                     tableTab === 'projects' 
                       ? "border-indigo-600 text-zinc-900" 
                       : "border-transparent text-zinc-400 hover:text-zinc-650"
@@ -486,7 +488,7 @@ export default function Home() {
               {tableTab === 'documents' && documents.length > 0 && (
                 <button 
                   onClick={() => router.push('/results')}
-                  className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors"
+                  className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors self-end xs:self-auto"
                 >
                   View All
                 </button>
@@ -495,8 +497,8 @@ export default function Home() {
 
             {/* TAB: Documents List */}
             {tableTab === 'documents' && (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
+              <div className="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+                <table className="w-full text-left border-collapse min-w-[500px]">
                   <thead>
                     <tr className="text-[10px] font-bold text-zinc-400 uppercase border-b border-zinc-100">
                       <th className="py-2.5">Document</th>
@@ -556,23 +558,23 @@ export default function Home() {
                 {projects.map((proj) => (
                   <div 
                     key={proj.id} 
-                    className="flex justify-between items-center p-4 rounded-xl bg-white border border-zinc-200 hover:-translate-y-0.5 transition-all shadow-sm"
+                    className="flex flex-col sm:flex-row justify-between sm:items-center p-3.5 sm:p-4 rounded-xl bg-white border border-zinc-200 hover:-translate-y-0.5 transition-all shadow-xs gap-3"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-9 h-9 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
                         <BarChart2 className="h-4.5 w-4.5" />
                       </div>
-                      <div>
-                        <Link href={`/projects/${proj.id}`} className="font-bold text-zinc-900 hover:text-indigo-650 transition-colors text-sm">
+                      <div className="min-w-0">
+                        <Link href={`/projects/${proj.id}`} className="font-bold text-zinc-900 hover:text-indigo-650 transition-colors text-sm truncate block">
                           {proj.name}
                         </Link>
-                        <span className="text-[10px] text-zinc-400 block font-semibold mt-0.5">
+                        <span className="text-[10px] text-zinc-400 block font-semibold mt-0.5 truncate">
                           {proj.description || 'No description'} • {proj._count.documents} documents
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 dropdown-container relative">
+                    <div className="flex items-center gap-2 dropdown-container relative self-end sm:self-auto shrink-0">
                       <Link 
                         href={`/projects/${proj.id}`}
                         className="h-8 px-3 rounded-lg text-xs font-bold bg-indigo-50 border border-indigo-100 text-indigo-600 hover:bg-indigo-100 transition-colors flex items-center justify-center"
@@ -628,9 +630,9 @@ export default function Home() {
         </div>
 
         {/* Right 1 Column: Project Creation, Quick Upload, and Activity Feed */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8 min-w-0">
           {/* Create Project Panel */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-4">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-4">
             <div className="flex items-center gap-2 border-b border-zinc-150 pb-2">
               <Plus className="h-4.5 w-4.5 text-indigo-500" />
               <h3 className="font-heading text-sm font-bold text-zinc-900">Create New Project</h3>
@@ -694,11 +696,11 @@ export default function Home() {
           </div>
 
           {/* Quick Upload card */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-4">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-4">
             <h3 className="font-heading text-sm font-bold text-zinc-900">Quick Upload</h3>
             <div 
               onClick={() => router.push('/analyze')}
-              className="border-2 border-dashed border-zinc-200 hover:border-indigo-400 rounded-xl p-6 text-center bg-white/60 hover:bg-white transition-all cursor-pointer flex flex-col items-center justify-center space-y-3"
+              className="border-2 border-dashed border-zinc-200 hover:border-indigo-400 rounded-xl p-5 sm:p-6 text-center bg-white/60 hover:bg-white transition-all cursor-pointer flex flex-col items-center justify-center space-y-3"
             >
               <div className="w-10 h-10 rounded-full bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-455">
                 <Upload className="h-5 w-5" />
@@ -711,7 +713,7 @@ export default function Home() {
           </div>
 
           {/* Activity Feed */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-4">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-4">
             <h3 className="font-heading text-sm font-bold text-zinc-900">Recent Activity</h3>
             <div className="space-y-4">
               {/* Activity 1 */}
@@ -757,12 +759,12 @@ export default function Home() {
       {/* Edit Project Details Modal */}
       <AnimatePresence>
         {editingProject && (
-          <div className="fixed inset-0 bg-zinc-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-zinc-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
             <motion.div 
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="glass-panel p-6 rounded-2xl max-w-md w-full border border-white/60 shadow-2xl space-y-4"
+              className="glass-panel p-5 sm:p-6 rounded-2xl max-w-md w-full border border-white/60 shadow-2xl space-y-4"
             >
               <h3 className="font-heading text-lg font-bold text-zinc-900">
                 Edit Project Details

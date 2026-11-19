@@ -221,22 +221,22 @@ export default function ReviewQueue(props: { params: Promise<{ id: string }> }) 
   }
 
   return (
-    <main className="mx-auto w-full max-w-7xl px-6 py-12 flex-1 flex flex-col justify-start relative">
+    <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full select-none min-w-0 flex flex-col justify-start relative">
       {/* Back to workspace */}
-      <Link href={`/projects/${projectId}`} className="inline-flex items-center gap-2 text-sm text-zinc-550 hover:text-indigo-600 transition-colors mb-6 w-fit font-medium">
+      <Link href={`/projects/${projectId}`} className="inline-flex items-center gap-2 text-sm text-zinc-550 hover:text-indigo-600 transition-colors mb-2 sm:mb-4 w-fit font-medium">
         <ArrowLeft className="h-4 w-4" /> Back to Project
       </Link>
 
       {/* Top Header Panel */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 pb-6 border-b border-zinc-200/80 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-zinc-200/80">
         <div>
           <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
             Human-in-the-Loop Review Queue
           </span>
-          <TextEffect preset="fade-in-blur" per="word" className="font-heading text-2xl sm:text-3xl font-extrabold text-zinc-900 mt-3">
+          <TextEffect preset="fade-in-blur" per="word" className="font-heading text-2xl sm:text-3xl font-extrabold text-zinc-900 mt-2 sm:mt-3">
             {project?.name || 'Workspace Loading...'}
           </TextEffect>
-          <p className="mt-2 text-sm text-zinc-550 max-w-3xl leading-relaxed">
+          <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-zinc-550 max-w-3xl leading-relaxed">
             Inspect AI-extracted facts, resolve schedule conflicts, and approve proposed action items.
           </p>
         </div>
@@ -245,7 +245,7 @@ export default function ReviewQueue(props: { params: Promise<{ id: string }> }) 
         <button
           onClick={handleSaveSummary}
           disabled={savingSummary}
-          className="flex h-11 items-center justify-center rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 font-bold text-white px-6 shadow-md transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none"
+          className="w-full sm:w-auto flex h-10 sm:h-11 items-center justify-center rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 font-bold text-white px-5 sm:px-6 shadow-md transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none text-xs sm:text-sm shrink-0"
         >
           {savingSummary ? (
             <>
@@ -263,7 +263,7 @@ export default function ReviewQueue(props: { params: Promise<{ id: string }> }) 
 
       {/* Overview alerts */}
       {unresolvedConflicts.length > 0 && (
-        <div className="mb-6 rounded-xl bg-amber-50 border border-amber-100 p-4 text-xs text-amber-800 flex items-center gap-3 font-medium">
+        <div className="rounded-xl bg-amber-50 border border-amber-100 p-4 text-xs text-amber-800 flex items-center gap-3 font-medium">
           <AlertTriangle className="h-5 w-5 shrink-0 text-amber-500" />
           <div>
             <span className="font-bold">Pending Conflicts:</span> There are {unresolvedConflicts.length} unresolved schedule discrepancy conflicts. You must add a resolution note and mark them resolved to finalize the summary.
@@ -272,14 +272,14 @@ export default function ReviewQueue(props: { params: Promise<{ id: string }> }) 
       )}
 
       {/* Primary Workspace Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
         {/* Left 2 columns: Review queues */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-6 min-w-0">
           {/* Custom Tabs */}
-          <div className="flex border-b border-zinc-200">
+          <div className="flex border-b border-zinc-200 overflow-x-auto pb-0 -mx-2 px-2 sm:mx-0 sm:px-0 scrollbar-none">
             <button
               onClick={() => setActiveTab('findings')}
-              className={`pb-4 px-6 text-sm font-bold border-b-2 transition-colors ${
+              className={`pb-3 sm:pb-4 px-3.5 sm:px-6 text-xs sm:text-sm font-bold border-b-2 transition-colors shrink-0 whitespace-nowrap ${
                 activeTab === 'findings' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-zinc-400 hover:text-zinc-650'
               }`}
             >
@@ -287,7 +287,7 @@ export default function ReviewQueue(props: { params: Promise<{ id: string }> }) 
             </button>
             <button
               onClick={() => setActiveTab('conflicts')}
-              className={`pb-4 px-6 text-sm font-bold border-b-2 transition-colors ${
+              className={`pb-3 sm:pb-4 px-3.5 sm:px-6 text-xs sm:text-sm font-bold border-b-2 transition-colors shrink-0 whitespace-nowrap ${
                 activeTab === 'conflicts' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-zinc-400 hover:text-zinc-650'
               }`}
             >
@@ -300,7 +300,7 @@ export default function ReviewQueue(props: { params: Promise<{ id: string }> }) 
             </button>
             <button
               onClick={() => setActiveTab('actions')}
-              className={`pb-4 px-6 text-sm font-bold border-b-2 transition-colors ${
+              className={`pb-3 sm:pb-4 px-3.5 sm:px-6 text-xs sm:text-sm font-bold border-b-2 transition-colors shrink-0 whitespace-nowrap ${
                 activeTab === 'actions' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-zinc-400 hover:text-zinc-650'
               }`}
             >
@@ -616,8 +616,8 @@ export default function ReviewQueue(props: { params: Promise<{ id: string }> }) 
         </div>
 
         {/* Right column: Sticky Source Citation Drawer */}
-        <div className="lg:sticky lg:top-24 space-y-6">
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 min-h-[350px] flex flex-col justify-between shadow-sm">
+        <div className="lg:sticky lg:top-8 space-y-6 min-w-0">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 min-h-[300px] sm:min-h-[350px] flex flex-col justify-between shadow-sm">
             <div>
               <h3 className="font-heading text-lg font-bold text-zinc-900 mb-4 flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-indigo-500" />

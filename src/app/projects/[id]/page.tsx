@@ -260,30 +260,30 @@ export default function ProjectWorkspace(props: { params: Promise<{ id: string }
   const canUpload = totalDocs < 3;
 
   return (
-    <main className="mx-auto w-full max-w-7xl px-6 py-12 flex-1 flex flex-col justify-start">
+    <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full select-none min-w-0">
       {/* Back to dashboard */}
-      <Link href="/" className="inline-flex items-center gap-2 text-sm text-zinc-550 hover:text-indigo-600 transition-colors mb-6 w-fit font-medium">
+      <Link href="/" className="inline-flex items-center gap-2 text-sm text-zinc-550 hover:text-indigo-600 transition-colors mb-2 sm:mb-4 w-fit font-medium">
         <ArrowLeft className="h-4 w-4" /> Back to Dashboard
       </Link>
 
       {/* Title block */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-zinc-200/80 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-zinc-200/80">
         <div>
           <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
             Project Workspace
           </span>
-          <TextEffect preset="fade-in-blur" per="word" className="font-heading text-2xl sm:text-3xl font-extrabold text-zinc-900 mt-3">
+          <TextEffect preset="fade-in-blur" per="word" className="font-heading text-2xl sm:text-3xl font-extrabold text-zinc-900 mt-2 sm:mt-3">
             {project?.name || 'Workspace Loading...'}
           </TextEffect>
           {project?.description && (
-            <p className="mt-2 text-sm text-zinc-500 max-w-3xl leading-relaxed">
+            <p className="mt-2 text-xs sm:text-sm text-zinc-500 max-w-3xl leading-relaxed">
               {project.description}
             </p>
           )}
         </div>
 
         {/* Project Actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap sm:flex-nowrap">
           <button
             onClick={() => {
               if (!project) return;
@@ -291,14 +291,14 @@ export default function ProjectWorkspace(props: { params: Promise<{ id: string }
               setEditDescription(project.description || '');
               setIsEditingProject(true);
             }}
-            className="inline-flex h-9 items-center justify-center rounded-lg bg-white border border-zinc-200 px-4 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-colors shadow-sm"
+            className="flex-1 sm:flex-initial inline-flex h-9 sm:h-10 items-center justify-center rounded-xl bg-white border border-zinc-200 px-3.5 sm:px-4 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-colors shadow-xs"
           >
             <Edit className="mr-2 h-3.5 w-3.5 text-zinc-400" />
             Edit Project
           </button>
           <button
             onClick={handleDeleteProjectWorkspace}
-            className="inline-flex h-9 items-center justify-center rounded-lg bg-red-50 border border-red-100 px-4 text-xs font-bold text-red-650 hover:text-red-700 hover:bg-red-50 transition-colors shadow-sm"
+            className="flex-1 sm:flex-initial inline-flex h-9 sm:h-10 items-center justify-center rounded-xl bg-red-50 border border-red-100 px-3.5 sm:px-4 text-xs font-bold text-red-650 hover:text-red-700 hover:bg-red-50 transition-colors shadow-xs"
           >
             <Trash2 className="mr-2 h-3.5 w-3.5 text-red-400" />
             Delete Project
@@ -306,10 +306,10 @@ export default function ProjectWorkspace(props: { params: Promise<{ id: string }
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
         {/* Left Column: Documents management */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="glass-panel p-6 rounded-2xl border border-white/60">
+        <div className="lg:col-span-2 space-y-6 min-w-0">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60">
             <div className="flex justify-between items-center mb-6">
               <h2 className="font-heading text-lg font-bold text-zinc-900 flex items-center gap-2">
                 <FileText className="h-5 w-5 text-indigo-500" />
@@ -405,8 +405,8 @@ export default function ProjectWorkspace(props: { params: Promise<{ id: string }
         </div>
 
         {/* Right Column: Analysis state and execution */}
-        <div className="space-y-6">
-          <div className="glass-panel p-6 rounded-2xl border border-white/60">
+        <div className="space-y-6 min-w-0">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60">
             <h3 className="font-heading text-lg font-bold text-zinc-900 mb-4 flex items-center gap-2">
               <Play className="h-5 w-5 text-indigo-500" />
               Analysis Engine

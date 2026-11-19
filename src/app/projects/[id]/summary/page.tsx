@@ -122,16 +122,16 @@ export default function ProjectSummary(props: { params: Promise<{ id: string }> 
   }
 
   return (
-    <main className="mx-auto w-full max-w-4xl px-6 py-12 flex-1 flex flex-col justify-start print:p-0 print:bg-white print:text-black">
+    <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-4xl mx-auto w-full min-w-0 flex flex-col justify-start print:p-0 print:bg-white print:text-black">
       {/* Top action header (hidden on print) */}
-      <div className="flex items-center justify-between gap-4 mb-8 print:hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 print:hidden">
         <Link href={`/projects/${projectId}/review`} className="inline-flex items-center gap-2 text-sm text-zinc-550 hover:text-indigo-600 transition-colors font-medium">
           <ArrowLeft className="h-4 w-4" /> Back to Review Queue
         </Link>
         
         <button
           onClick={handlePrint}
-          className="inline-flex h-10 items-center justify-center rounded-xl bg-white border border-zinc-200 px-5 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-all hover:scale-[1.01] active:scale-[0.99] shadow-sm"
+          className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-xl bg-white border border-zinc-200 px-5 text-xs font-bold text-zinc-650 hover:text-indigo-650 hover:border-indigo-150 transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xs"
         >
           <Printer className="mr-2 h-4 w-4 text-zinc-400" />
           Print / Export PDF
@@ -139,7 +139,7 @@ export default function ProjectSummary(props: { params: Promise<{ id: string }> 
       </div>
 
       {/* Main summary document */}
-      <div className="glass-panel border border-white/60 rounded-3xl p-8 md:p-12 shadow-lg print:border-none print:bg-transparent print:p-0 print:shadow-none">
+      <div className="glass-panel border border-white/60 rounded-3xl p-5 sm:p-8 md:p-12 shadow-lg print:border-none print:bg-transparent print:p-0 print:shadow-none">
         {/* Document Header */}
         <div className="border-b border-zinc-200 pb-8 mb-8 print:border-zinc-300">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">

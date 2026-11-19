@@ -89,7 +89,7 @@ export default function AnalyticsPage() {
   const circ = 2 * Math.PI * radius;
 
   return (
-    <main className="flex-1 p-8 space-y-8 max-w-7xl mx-auto w-full select-none">
+    <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full select-none min-w-0">
       {/* Header Panel */}
       <div>
         <TextEffect preset="fade-in-blur" per="word" className="font-heading text-2xl sm:text-3xl font-extrabold text-zinc-900">
@@ -101,7 +101,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {stats.map((s, idx) => (
           <motion.div 
             key={idx}
@@ -109,7 +109,7 @@ export default function AnalyticsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05, duration: 0.3 }}
             whileHover={{ y: -2, transition: { duration: 0.15 } }}
-            className="glass-panel p-5 rounded-2xl border border-white/60 shadow-sm flex items-center gap-4 relative overflow-hidden"
+            className="glass-panel p-4 sm:p-5 rounded-2xl border border-white/60 shadow-sm flex items-center gap-4 relative overflow-hidden"
           >
             <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center border shrink-0", s.color)}>
               <s.icon className="w-5 h-5" />
@@ -123,13 +123,13 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
         
         {/* Left Column (2/3): Bar Chart & Horizontal Progress breakdown */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 sm:space-y-8 min-w-0">
           
           {/* Documents Processed (Bar Chart) */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-6">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-6">
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="font-heading text-sm font-bold text-zinc-900">Documents Processed</h3>
@@ -141,7 +141,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* SVG/Div Bar Chart */}
-            <div className="h-64 flex justify-between items-end gap-3 pt-6 px-4">
+            <div className="h-56 sm:h-64 flex justify-between items-end gap-1.5 sm:gap-3 pt-6 px-1 sm:px-4">
               {barData.map((item, idx) => {
                 // Find percentage relative to max value (175)
                 const pct = (item.value / 175) * 100;
@@ -203,10 +203,10 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Right Column (1/3): Donut Chart & Top Performing list */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8 min-w-0">
           
           {/* Document Types Donut */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/60 shadow-sm space-y-6">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl border border-white/60 shadow-sm space-y-6">
             <div className="flex justify-between items-center">
               <h3 className="font-heading text-sm font-bold text-zinc-900">Document Types</h3>
               <span className="text-[10px] font-bold text-zinc-400">Distribution</span>

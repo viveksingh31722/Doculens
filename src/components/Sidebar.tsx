@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { 
   LayoutDashboard, FileText, BarChart3, Settings, HelpCircle, 
   ChevronLeft, ChevronRight, FileSearch, Sparkles
@@ -10,23 +10,13 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 
-export function Sidebar() {
+interface SidebarProps {
+  isCollapsed?: boolean;
+  onToggle?: () => void;
+}
+
+export function Sidebar({ isCollapsed = false, onToggle }: SidebarProps) {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  // Load collapse state from local storage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem('sidebar-collapsed');
-    if (saved) {
-      setIsCollapsed(saved === 'true');
-    }
-  }, []);
-
-  const toggleSidebar = () => {
-    const nextState = !isCollapsed;
-    setIsCollapsed(nextState);
-    localStorage.setItem('sidebar-collapsed', String(nextState));
-  };
 
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
@@ -46,7 +36,7 @@ export function Sidebar() {
       animate={{ width: isCollapsed ? 72 : 260 }}
       transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
       className={cn(
-        "fixed inset-y-0 left-0 z-40 flex flex-col justify-between border-r border-zinc-200/60 bg-white/80 backdrop-blur-xl shadow-sm overflow-hidden select-none",
+        "hidden lg:flex fixed inset-y-0 left-0 z-40 flex-col justify-between border-r border-zinc-200/60 bg-white/80 backdrop-blur-xl shadow-sm overflow-hidden select-none",
         isCollapsed ? "items-center py-6" : "p-6"
       )}
     >
@@ -144,19 +134,21 @@ export function Sidebar() {
         </div>
 
         {/* Sidebar collapse button */}
-        <button
-          onClick={toggleSidebar}
-          className="flex h-9 w-9 items-center justify-center rounded-xl border border-zinc-200/80 bg-white hover:bg-zinc-50 hover:text-zinc-800 transition-colors shadow-sm cursor-pointer mx-auto w-full max-w-[212px] h-9 gap-2 shrink-0 text-zinc-450"
-        >
-          {isCollapsed ? (
-            <ChevronRight className="h-4 w-4 shrink-0" />
-          ) : (
-            <>
-              <ChevronLeft className="h-4 w-4 shrink-0" />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">Collapse menu</span>
-            </>
-          )}
-        </button>
+        {onToggle && (
+          <button
+            onClick={onToggle}
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-zinc-200/80 bg-white hover:bg-zinc-50 hover:text-zinc-800 transition-colors shadow-sm cursor-pointer mx-auto w-full max-w-[212px] h-9 gap-2 shrink-0 text-zinc-450"
+          >
+            {isCollapsed ? (
+              <ChevronRight className="h-4 w-4 shrink-0" />
+            ) : (
+              <>
+                <ChevronLeft className="h-4 w-4 shrink-0" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">Collapse menu</span>
+              </>
+            )}
+          </button>
+        )}
       </div>
     </motion.aside>
   );
