@@ -34,9 +34,10 @@ export function MobileNav({ isOpen, onToggle, onClose }: MobileNavProps) {
     }
   }, [pathname]);
 
-  // Lock body scroll when mobile drawer is open
+  // Lock body scroll only when mobile drawer is open below desktop breakpoint
   useEffect(() => {
-    if (isOpen) {
+    const isDesktop = typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches;
+    if (isOpen && !isDesktop) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -49,6 +50,13 @@ export function MobileNav({ isOpen, onToggle, onClose }: MobileNavProps) {
   // Release scroll lock and close drawer when viewport enters desktop breakpoint (>= 1024px)
   useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    
+    // Check initial breakpoint state immediately
+    if (mediaQuery.matches && isOpen) {
+      onClose();
+      return;
+    }
+
     const handleMediaChange = (e: MediaQueryListEvent) => {
       if (e.matches && isOpen) {
         onClose();
